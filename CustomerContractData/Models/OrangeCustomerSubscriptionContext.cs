@@ -99,6 +99,9 @@ namespace CustomerContractData.Models
                     .HasColumnName("serviceName");
             });
 
+            modelBuilder.Entity<CustomerCountPerServiceResult>().
+                HasNoKey().ToView("CustomersCountsByServiceType");
+
             OnModelCreatingPartial(modelBuilder);
         }
 

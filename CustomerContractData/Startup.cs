@@ -13,6 +13,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft;
+using CustomerContractData.Repos;
+
 namespace CustomerContractData
 {
     public class Startup
@@ -24,6 +26,8 @@ namespace CustomerContractData
 
         public IConfiguration Configuration { get; }
 
+        string MyAllowSpecificOrigins = "m";
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -33,6 +37,20 @@ namespace CustomerContractData
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "CustomerContractData", Version = "v1" });
             });
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(MyAllowSpecificOrigins,
+                builder =>
+                {
+                    builder.AllowAnyOrigin();
+                    builder.AllowAnyHeader();
+                    builder.AllowAnyMethod();
+
+                });
+            });
+
+            services.AddScoped<ICustomerRepo, CustomerRepo>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
