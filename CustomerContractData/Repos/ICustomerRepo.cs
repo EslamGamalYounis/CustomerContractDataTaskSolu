@@ -8,7 +8,7 @@ namespace CustomerContractData.Repos
 {
     public interface ICustomerRepo
     {
-        List<Customer> getAll();
+        Task<List<Customer>> getAll(int pageIndex);
         IEnumerable<Customer> getCustomerHasExpiredContractOnly();
         IEnumerable<Customer> GetCustomerWillExpireWithinMonth();
         int getCustomerNumByServiceType(string serviceName);

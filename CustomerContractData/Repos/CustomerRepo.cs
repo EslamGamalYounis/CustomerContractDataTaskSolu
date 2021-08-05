@@ -17,9 +17,9 @@ namespace CustomerContractData.Repos
         {
             DBContext = _db;
         }
-        public List<Customer> getAll()
+        public async Task<List<Customer>> getAll(int pageIndex)
         {
-            var customers = DBContext.Customers.ToList();       
+            var customers = await PaginatedList<Customer>.CreateAsync(DBContext.Customers, pageIndex, 10);
             return customers;
         }
 

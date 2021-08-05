@@ -1,4 +1,5 @@
-﻿using CustomerContractData.Repos;
+﻿using CustomerContractData.Models;
+using CustomerContractData.Repos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -19,11 +20,11 @@ namespace CustomerContractData.Controllers
             customerRepo = _customerRepo;
         }
 
-        [HttpGet]
-        public ActionResult GetAll()
+        [HttpGet("{pageIndex}")]
+        public async Task<ActionResult> GetAll(int pageIndex=1)
         {
-            var result =customerRepo.getAll();
-            return Ok(result);
+            var customers =await customerRepo.getAll(pageIndex);
+            return Ok(customers);
         }
 
         [HttpGet("/api/customer/expired")]
