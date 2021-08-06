@@ -1,5 +1,7 @@
-﻿using CustomerContractData.Models;
+﻿using CustomerContractData.Helpers;
+using CustomerContractData.Models;
 using CustomerContractData.Repos;
+using CustomerContractData.ResourcesParameters;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -20,10 +22,16 @@ namespace CustomerContractData.Controllers
             customerRepo = _customerRepo;
         }
 
-        [HttpGet("{pageIndex}")]
-        public async Task<ActionResult> GetAll(int pageIndex=1)
+        [HttpGet]
+        [ProducesResponseType(200,Type=typeof(List<Customer>))]
+        public ActionResult GetAll([FromQuery] UserResourceParameters userResourceParameters)
         {
-            var customers =await customerRepo.getAll(pageIndex);
+            if(userResourceParameters == null)
+            {
+                return BadRequest(ModelState);
+            }
+            var customers = customerRepo.getAll(userResourceParameters);
+            Response.AddPagination(customers.CurrentPage, customers.PageSize, customers.TotalCount, customers.TotalPages);
             return Ok(customers);
         }
 

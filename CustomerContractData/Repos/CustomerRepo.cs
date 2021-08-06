@@ -1,5 +1,7 @@
 ﻿using Castle.Core.Logging;
+using CustomerContractData.Helpers;
 using CustomerContractData.Models;
+using CustomerContractData.ResourcesParameters;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -17,10 +19,32 @@ namespace CustomerContractData.Repos
         {
             DBContext = _db;
         }
-        public async Task<List<Customer>> getAll(int pageIndex)
+        //public async Task<List<Customer>> getAll(int pageIndex)
+        //{
+        //    var customers = await PaginatedList<Customer>.CreateAsync(DBContext.Customers, pageIndex, 20);
+        //    return customers;
+        //}
+
+        public PagedList<Customer> getAll(UserResourceParameters userResourceParameters)
         {
-            var customers = await PaginatedList<Customer>.CreateAsync(DBContext.Customers, pageIndex, 10);
-            return customers;
+            if (userResourceParameters == null)
+            {
+                throw new ArgumentNullException(nameof(userResourceParameters));
+            }
+            if (userResourceParameters.PageNumber == 0 & userResourceParameters.PageSize == 0)
+            {
+                throw new ArgumentNullException(nameof(userResourceParameters));
+            }
+
+            var customers = DBContext.Customers as IQueryable<Customer>;
+
+            if (!string.IsNullOrWhiteSpace(userResourceParameters.SearchQuery))
+            {
+                var searchQuery = userResourceParameters.SearchQuery.Trim();
+                customers = customers.Where(a => a.CstName.Contains(searchQuery));
+            }
+
+            return PagedList<Customer>.Create(customers, userResourceParameters.PageNumber, userResourceParameters.PageSize);
         }
 
         public IEnumerable<Customer> getCustomerHasExpiredContractOnly()
