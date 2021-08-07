@@ -19,11 +19,6 @@ namespace CustomerContractData.Repos
         {
             DBContext = _db;
         }
-        //public async Task<List<Customer>> getAll(int pageIndex)
-        //{
-        //    var customers = await PaginatedList<Customer>.CreateAsync(DBContext.Customers, pageIndex, 20);
-        //    return customers;
-        //}
 
         public PagedList<Customer> getAll(UserResourceParameters userResourceParameters)
         {
@@ -83,6 +78,13 @@ namespace CustomerContractData.Repos
             var customers = DBContext.Customers
                             .FromSqlRaw("Exec CustomersContractsWillExpireWithinMonth").AsEnumerable();
             return customers;
+        }
+
+        public IEnumerable<CountMonthsPerYear> GetCstCountMonthsPerYears(int year)
+        {
+            var result = DBContext.Set<CountMonthsPerYear>().FromSqlInterpolated($"exec customerCountsPerYearAndMonth {year}").ToList();
+            int x = 0;
+            return result;
         }
 
     }

@@ -10,11 +10,11 @@ namespace CustomerContractData.Repos
 {
     public interface ICustomerRepo
     {
-        //Task<List<Customer>> getAll(int pageIndex);
         PagedList<Customer> getAll(UserResourceParameters userResourceParameters);
         IEnumerable<Customer> getCustomerHasExpiredContractOnly();
         IEnumerable<Customer> GetCustomerWillExpireWithinMonth();
         int getCustomerNumByServiceType(string serviceName);
+        IEnumerable<CountMonthsPerYear> GetCstCountMonthsPerYears(int year);
 
     }
 }

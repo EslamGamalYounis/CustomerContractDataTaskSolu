@@ -51,6 +51,7 @@ namespace CustomerContractData
             });
 
             services.AddScoped<ICustomerRepo, CustomerRepo>();
+            services.AddScoped<IServiceRepo, ServicesRepo>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

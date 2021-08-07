@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 #nullable disable
@@ -15,6 +16,7 @@ namespace CustomerContractData.Models
         public int ServiceId { get; set; }
         public string ServiceName { get; set; }
 
+        [JsonIgnore]
         public virtual ICollection<ContractDate> ContractDates { get; set; }
     }
 }

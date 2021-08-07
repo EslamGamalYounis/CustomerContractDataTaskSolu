@@ -55,5 +55,21 @@ namespace CustomerContractData.Controllers
             var result = customerRepo.getCustomerNumByServiceType(serviceName);
             return Ok(result);
         }
+
+        [HttpGet("/api/customer/count/year/{year}")]
+        public ActionResult GetCustomerCountByMonthsAndYear(int year)
+        {
+            var result = customerRepo.GetCstCountMonthsPerYears(year);
+            if(result != null)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest("year is not have data");
+            }
+        }
+
+
     }
 }
