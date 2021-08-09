@@ -17,5 +17,12 @@ namespace CustomerContractData.Models
         public string CstName { get; set; }
 
         public virtual ICollection<ContractDate> ContractDates { get; set; }
+
+        public Customer(int CstID,string CstName, ICollection<ContractDate> contracts)
+        {
+            this.CstId = CstID;
+            this.CstName = CstName;
+            this.ContractDates = contracts;
+        }
     }
 }

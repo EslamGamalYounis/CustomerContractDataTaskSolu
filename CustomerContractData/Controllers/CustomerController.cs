@@ -49,10 +49,10 @@ namespace CustomerContractData.Controllers
             return Ok(result);
         }
 
-        [HttpGet("/api/customer/count/{serviceName}")]
-        public ActionResult GetCustomerCountByServiceName(string serviceName)
+        [HttpGet("/api/customer/count/service")]
+        public ActionResult GetCustomerCountByServiceName()
         {
-            var result = customerRepo.getCustomerNumByServiceType(serviceName);
+            var result = customerRepo.getCustomerNumByServiceType();
             return Ok(result);
         }
 

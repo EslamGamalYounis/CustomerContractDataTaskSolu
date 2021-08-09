@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace CustomerContractData.Models
 {
     [Keyless]
-    public class CustomerCountPerServiceResult
+    public class GetCustomerConutsByServiceTypeResultOld
     {
         public int Counts{ get; set; }
 
