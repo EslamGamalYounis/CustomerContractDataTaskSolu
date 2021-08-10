@@ -114,10 +114,25 @@ namespace CustomerContractData.Repos
             return customers;
         }
 
-        public IEnumerable<CountMonthsPerYear> GetCstCountMonthsPerYears(int year)
+        //old
+        //public IEnumerable<CountMonthsPerYear> GetCstCountMonthsPerYears(int year)
+        //{
+        //    var result = DBContext.Set<CountMonthsPerYear>().FromSqlInterpolated($"exec customerCountsPerYearAndMonth {year}").ToList();
+        //    int x = 0;
+        //    return result;
+        //}
+
+        public IEnumerable<GetCountMonthsPerYearResult> GetCstCountMonthsPerYears(int year)
         {
-            var result = DBContext.Set<CountMonthsPerYear>().FromSqlInterpolated($"exec customerCountsPerYearAndMonth {year}").ToList();
-            int x = 0;
+            var result = DBContext.Set<GetCountMonthsPerYearResult>().FromSqlInterpolated($"exec customerCountsPerYearAndMonthNew {year}").ToList();
+            for(int i = 1; i < 13; i++)
+            {
+                if(result.All(x=>x.Month != i ))
+                    result.Add(new GetCountMonthsPerYearResult { Month = i, Count = 0});
+              
+            }
+            
+            
             return result;
         }
 

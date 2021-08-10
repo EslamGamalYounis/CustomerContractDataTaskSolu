@@ -102,9 +102,12 @@ namespace CustomerContractData.Models
             modelBuilder.Entity<GetCustomerConutsByServiceTypeResult>().
                 HasNoKey().ToView("CustomersCountsByServiceType");
 
-            modelBuilder.Entity<CountMonthsPerYear>().
-                HasNoKey().ToView("customerCountsPerYearAndMonth");
-            OnModelCreatingPartial(modelBuilder);
+            //modelBuilder.Entity<CountMonthsPerYear>().
+            //    HasNoKey().ToView("customerCountsPerYearAndMonth");
+            //OnModelCreatingPartial(modelBuilder);
+
+            modelBuilder.Entity<GetCountMonthsPerYearResult>().
+                HasNoKey().ToView("customerCountsPerYearAndMonthNew");
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
