@@ -45,7 +45,8 @@ namespace CustomerContractData.Controllers
         [HttpGet("/api/customer/expiredwithinmonth")]
         public ActionResult GetCustomerContractWillExpireWithMonth()
         {
-            var result = customerRepo.GetCustomerWillExpireWithinMonth();
+            //var result = customerRepo.GetCustomerWillExpireWithinMonth();   
+            var result = customerRepo.GetCustomerWillExpireWithinMonthNew();
             return Ok(result);
         }
 

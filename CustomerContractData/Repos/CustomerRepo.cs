@@ -89,7 +89,7 @@ namespace CustomerContractData.Repos
         public IEnumerable<Customer> GetCustomerWillExpireWithinMonth()
         {
             DateTime dateTime = DateTime.UtcNow.Date;
-            DbFunctions dfunc = null;
+             DbFunctions dfunc = null;
             //var customers = DBContext.Customers
             //                //.FromSqlRaw("Exec CustomersContractsWillExpireWithinMonth").AsEnumerable();
             //                .Join(
@@ -114,13 +114,14 @@ namespace CustomerContractData.Repos
             return customers;
         }
 
-        //old
-        //public IEnumerable<CountMonthsPerYear> GetCstCountMonthsPerYears(int year)
-        //{
-        //    var result = DBContext.Set<CountMonthsPerYear>().FromSqlInterpolated($"exec customerCountsPerYearAndMonth {year}").ToList();
-        //    int x = 0;
-        //    return result;
-        //}
+
+            //old
+            //public IEnumerable<CountMonthsPerYear> GetCstCountMonthsPerYears(int year)
+            //{
+            //    var result = DBContext.Set<CountMonthsPerYear>().FromSqlInterpolated($"exec customerCountsPerYearAndMonth {year}").ToList();
+            //    int x = 0;
+            //    return result;
+            //}
 
         public IEnumerable<GetCountMonthsPerYearResult> GetCstCountMonthsPerYears(int year)
         {
@@ -136,5 +137,14 @@ namespace CustomerContractData.Repos
             return result;
         }
 
+        public IEnumerable<Customer> GetCustomerWillExpireWithinMonthNew()
+        {
+            DateTime dateTime = DateTime.UtcNow.Date;
+            DbFunctions dfunc = null;
+
+            var result = DBContext.Customers.Where(x => x.ContractDates.Any(c => SqlServerDbFunctionsExtensions.DateDiffDay(dfunc, dateTime, c.ContractExpiryDate) < 30 
+            && SqlServerDbFunctionsExtensions.DateDiffDay(dfunc, dateTime, c.ContractExpiryDate) > 0));
+            return result;
+        }
     }
 }

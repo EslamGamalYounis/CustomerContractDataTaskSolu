@@ -13,6 +13,7 @@ namespace CustomerContractData.Repos
         PagedList<Customer> getAll(UserResourceParameters userResourceParameters);
         IEnumerable<Customer> getCustomerHasExpiredContractOnly();
         IEnumerable<Customer> GetCustomerWillExpireWithinMonth();
+        IEnumerable<Customer> GetCustomerWillExpireWithinMonthNew();
         IEnumerable<GetCustomerConutsByServiceTypeResult> getCustomerNumByServiceType();
         //old
         //IEnumerable<CountMonthsPerYear> GetCstCountMonthsPerYears(int year);
